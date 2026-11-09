@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:18
+    command: postgres -c shared_preload_libraries=pg_stat_statements
+    environment:
+      POSTGRES_DB: clinic
+      POSTGRES_USER: clinic
+      POSTGRES_PASSWORD: clinic
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clinic -d clinic"]
+      interval: 3s
+      retries: 10
+
+  redis:
+    image: redis:8
+
+  web:
+    build: .
+    command: gunicorn config.wsgi:application --workers 2 --bind 0.0.0.0:8000
+    environment:
+      POSTGRES_HOST: db
+      REDIS_URL: redis://redis:6379/1
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  pgdata:
