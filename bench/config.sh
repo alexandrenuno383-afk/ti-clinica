@@ -1,6 +1,6 @@
 # Configuração partilhada pelos scripts de medição.
 NET="${NET:-ti-clinica_default}"
-K6_IMAGE="${K6_IMAGE:-grafana/k6:latest}"
+K6_IMAGE="${K6_IMAGE:-grafana/k6:2.3.0}"
 
 # Reserva de CPUs: 1 CPU para o k6, os restantes para web, db e redis.
 N_CPUS=$(nproc)
