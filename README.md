@@ -13,6 +13,12 @@ docker compose up -d --build
 bash bench/prepare.sh
 ```
 
+Tudo numa só linha:
+
+```sh
+docker compose up -d --build && bash bench/prepare.sh && bash bench/run_all.sh
+```
+
 `prepare.sh` aplica migrações, recria 10000 utilizadores sintéticos com seed fixa, limpa o
 Redis lógico 1 e reinicia as estatísticas de `pg_stat_statements`. A seed usa passwords
 inutilizáveis e endereços `example.test`; não são contas reais.
@@ -24,6 +30,7 @@ inutilizáveis e endereços `example.test`; não são contas reais.
 
 IDs 1–1000 formam o conjunto quente. Os restantes IDs são usados uma única vez por corrida
 como conjunto frio. O cache guarda o JSON já serializado durante 300 segundos.
+No domínio da clínica, os utilizadores medidos são os clientes.
 
 ## Corridas
 
@@ -39,6 +46,11 @@ de 4 minutos, sem contar a preparação dos containers.
 
 Os resultados brutos ficam em `results/`; os dados usados na análise final estão em
 `data/results-final.csv`.
+Depois das corridas, gera o CSV final a partir dos resultados recolhidos:
+
+```sh
+awk -F, 'NR==1 || $6==6001' results/results.csv > data/results-final.csv
+```
 
 ## Ambiente de medição
 
