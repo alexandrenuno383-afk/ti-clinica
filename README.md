@@ -89,9 +89,7 @@ Média ± desvio padrão amostral, em milissegundos, calculados a partir das cin
 | 99% | A | 5,664 ± 0,130 | 7,310 ± 0,159 |
 | 99% | B | 2,661 ± 0,051 | 3,935 ± 0,467 |
 
-Hipótese **não confirmada**: a mediana da redução de p95 foi 48,5% a 99% de acerto (abaixo
-do limiar de 50%) e −2,9% a 80% (abaixo de 50%). O critério mantém-se: confirmação exigiria
-redução ≥ 50% a 99% e < 50% a 80%.
+Hipótese **não confirmada**: a mediana da redução do p95 foi de 48,5% para 99% de acertos, ficando abaixo do limiar de 50%, e de −2,9% para 80% de acertos, correspondendo a uma degradação da latência. O critério de confirmação exige uma redução igual ou superior a 50% para 99% de acertos e uma redução positiva, mas inferior a 50%, para 80% de acertos. Assim, nenhum dos dois cenários confirmou a hipótese.
 
 ## Autores
 
